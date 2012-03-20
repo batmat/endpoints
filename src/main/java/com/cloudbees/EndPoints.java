@@ -54,6 +54,13 @@ public final class EndPoints {
     }
 
     /**
+     * Do not instantiate.
+     */
+    private EndPoints() {
+        throw new IllegalAccessError("Utility class");
+    }
+
+    /**
      * Gets the GrandCentral API endpoint.
      *
      * @return the GrandCentral API endpoint.
@@ -139,7 +146,7 @@ public final class EndPoints {
      * @param key the key of the property to resolve
      * @return the resolved value.
      */
-    private static String resolveProperty(String key) {
+    static String resolveProperty(String key) {
 
         StringBuilder result = new StringBuilder();
 
