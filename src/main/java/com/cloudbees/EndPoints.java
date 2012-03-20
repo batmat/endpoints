@@ -10,7 +10,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Provides details of all the CloudBees API end-points.
+ * Provides details of all the CloudBees API end-points. The system property {@code com.cloudbees.Domain} can be used
+ * to bulk switch all URIs.
  *
  * @author stephenc
  * @since 13/01/2012 14:31
@@ -21,8 +22,16 @@ public final class EndPoints {
      * Singleton lazy initialization pattern.
      */
     private final static class ResourceHolder {
+        /**
+         * Our properties.
+         */
         private static final Properties INSTANCE = loadProperties();
 
+        /**
+         * Loads the properties.
+         *
+         * @return the properties.
+         */
         private static Properties loadProperties() {
             Properties properties = new Properties();
             InputStream inputStream = EndPoints.class
@@ -44,27 +53,47 @@ public final class EndPoints {
         }
     }
 
+    /**
+     * Gets the GrandCentral API endpoint.
+     *
+     * @return the GrandCentral API endpoint.
+     */
     public static String grandCentral() {
-        return removeEnd(resolveProperty("GrandCentral"), "/");
+        return removeEnd(resolveProperty("com.cloudbees.EndPoints.grandCentral"), "/");
     }
 
-    public static String gcApi() {
-        return removeEnd(resolveProperty("GCApi"), "/");
+    /**
+     * Gets the Accounts API endpoint.
+     *
+     * @return the Accounts API endpoint.
+     */
+    public static String accountsAPI() {
+        return removeEnd(resolveProperty("com.cloudbees.EndPoints.accountAPI"), "/");
     }
 
+    /**
+     * Gets the RUN API endpoint.
+     *
+     * @return the RUN API endpoint.
+     */
     public static String runAPI() {
-        return removeEnd(resolveProperty("RunAPI"), "/");
+        return removeEnd(resolveProperty("com.cloudbees.EndPoints.runAPI"), "/");
     }
 
+    /**
+     * Gets the licenses API endpoint.
+     *
+     * @return the licenses API endpoint.
+     */
     public static String licenses() {
-        return removeEnd(resolveProperty("Licenses"), "/");
+        return removeEnd(resolveProperty("com.cloudbees.EndPoints.licenses"), "/");
     }
 
     /**
      * @return the forge endpoint template. Using String.format(forgeTemplate(), account) to reify this.
      */
     public static String forgeTemplate() {
-        return removeEnd(resolveProperty("Forge"), "/");
+        return removeEnd(resolveProperty("com.cloudbees.EndPoints.forgeTemplate"), "/");
     }
 
     /**
@@ -75,8 +104,14 @@ public final class EndPoints {
         return String.format(forgeTemplate(), account);
     }
 
-    public static String gcApiUserUri(String userId) {
-        return gcApi() + "/users/" + userId;
+    /**
+     * Gets the User's URI from the accounts API.
+     *
+     * @param userId the user id.
+     * @return the URI for the specified user.
+     */
+    public static String accountsAPIUserURI(String userId) {
+        return accountsAPI() + "/users/" + userId;
     }
 
     /**
@@ -97,11 +132,22 @@ public final class EndPoints {
         ResourceHolder.INSTANCE.setProperty(key, value);
     }
 
+    /**
+     * Recursively resolves a property value, taking property substitution into account, and allowing System property
+     * overrides to take precedence.
+     *
+     * @param key the key of the property to resolve
+     * @return the resolved value.
+     */
     private static String resolveProperty(String key) {
 
         StringBuilder result = new StringBuilder();
 
-        String value = ResourceHolder.INSTANCE.getProperty(key);
+        String value = System.getProperty(key, ResourceHolder.INSTANCE.getProperty(key));
+
+        if (value == null) {
+            return value;
+        }
 
         int i1, i2;
 
@@ -121,12 +167,7 @@ public final class EndPoints {
             // resolve the key/value for the ${statement}
             String tmpKey = value.substring(0, i2);
             value = value.substring(i2 + 1);
-            String tmpValue = ResourceHolder.INSTANCE.getProperty(tmpKey);
-
-            // try global environment..
-            if (tmpValue == null && !isEmpty(tmpKey) ) {
-                tmpValue = System.getProperty(tmpKey);
-            }
+            String tmpValue = System.getProperty(tmpKey, ResourceHolder.INSTANCE.getProperty(tmpKey));
 
             // if the key cannot be resolved,
             // leave it alone ( and don't parse again )
@@ -146,10 +187,11 @@ public final class EndPoints {
     /**
      * <p>Removes a substring only if it is at the end of a source string,
      * otherwise returns the source string.</p>
-     * @param str  the source String to search, may be null
-     * @param remove  the String to search for and remove, may be null
+     *
+     * @param str    the source String to search, may be null
+     * @param remove the String to search for and remove, may be null
      * @return the substring with the string removed if found,
-     *  <code>null</code> if null String input
+     *         <code>null</code> if null String input
      */
     public static String removeEnd(String str, String remove) {
         if (isEmpty(str) || isEmpty(remove)) {
@@ -163,7 +205,8 @@ public final class EndPoints {
 
     /**
      * <p>Checks if a String is empty ("") or null.</p>
-     * @param str  the String to check, may be null
+     *
+     * @param str the String to check, may be null
      * @return <code>true</code> if the String is empty or null
      */
     public static boolean isEmpty(String str) {

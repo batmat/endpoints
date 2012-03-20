@@ -24,4 +24,39 @@
     <developerConnection>scm:git:ssh://git@git.cloudbees.com/cloudbees/endpoints.git</developerConnection>
   </scm>
 
+  <properties>
+    <maven.findbugs.failure.strict>true</maven.findbugs.failure.strict>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.10</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>2.4.0</version>
+        <configuration>
+          <excludeFilterFile>${basedir}/src/findbugs/excludesFilter.xml</excludeFilterFile>
+          <failOnError>${maven.findbugs.failure.strict}</failOnError>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
