@@ -15,7 +15,7 @@
 
   <groupId>com.cloudbees</groupId>
   <artifactId>endpoints</artifactId>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.2</version>
   <name>endpoints</name>
   <description>A common API to get the URIs of various CloudBees API endpoints.</description>
 
