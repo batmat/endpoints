@@ -70,6 +70,15 @@ public final class EndPoints {
     }
 
     /**
+     * Gets the GrandCentral Web UI URL.
+     *
+     * @return the GrandCentral Web UI URL.
+     */
+    public static String grandCentralWebUI() {
+        return removeEnd(resolveProperty("com.cloudbees.EndPoints.grandCentralWebUI"), "/");
+    }
+
+    /**
      * Gets the Accounts API endpoint.
      *
      * @return the Accounts API endpoint.
@@ -94,6 +103,14 @@ public final class EndPoints {
      */
     public static String licenses() {
         return removeEnd(resolveProperty("com.cloudbees.EndPoints.licenses"), "/");
+    }
+
+    /**
+     * Gets the OpenId endpoint.
+     * @return the OpenId endpoint.
+     */
+    public static String openId() {
+        return removeEnd(resolveProperty("com.cloudbees.EndPoints.openId"), "/");
     }
 
     /**
