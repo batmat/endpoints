@@ -15,7 +15,7 @@
 
   <groupId>com.cloudbees</groupId>
   <artifactId>endpoints</artifactId>
-  <version>0.6-SNAPSHOT</version>
+  <version>0.6</version>
   <name>endpoints</name>
   <description>A common API to get the URIs of various CloudBees API endpoints.</description>
 
@@ -58,5 +58,28 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>cloudbees-internal-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.cloudbees.maven.plugins</groupId>
+            <artifactId>autochangelog-maven-plugin</artifactId>
+            <version>1.0-alpha-1</version>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>attach</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
