@@ -33,7 +33,7 @@
   </parent>
 
   <artifactId>endpoints</artifactId>
-  <version>0.8-SNAPSHOT</version>
+  <version>0.8</version>
   <name>endpoints</name>
   <description>A common API to get the URIs of various CloudBees API endpoints.</description>
 
