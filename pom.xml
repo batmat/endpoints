@@ -38,8 +38,8 @@
   <description>A common API to get the URIs of various CloudBees API endpoints.</description>
 
   <scm>
-    <connection>scm:git:ssh://git@github.com:cloudbees/endpoints.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:cloudbees/endpoints.git</developerConnection>
+    <connection>scm:git:ssh://git@github.com/cloudbees/endpoints.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/cloudbees/endpoints.git</developerConnection>
   </scm>
 
   <properties>
