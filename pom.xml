@@ -28,19 +28,18 @@
 
   <parent>
     <groupId>com.cloudbees</groupId>
-    <artifactId>cloudbees-internal-parent</artifactId>
-    <version>7</version>
+    <artifactId>cloudbees-oss-parent</artifactId>
+    <version>2</version>
   </parent>
 
-  <groupId>com.cloudbees</groupId>
   <artifactId>endpoints</artifactId>
   <version>0.8-SNAPSHOT</version>
   <name>endpoints</name>
   <description>A common API to get the URIs of various CloudBees API endpoints.</description>
 
   <scm>
-    <connection>scm:git:ssh://git@git.cloudbees.com/cloudbees/endpoints.git</connection>
-    <developerConnection>scm:git:ssh://git@git.cloudbees.com/cloudbees/endpoints.git</developerConnection>
+    <connection>scm:git:ssh://git@github.com:cloudbees/endpoints.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:cloudbees/endpoints.git</developerConnection>
   </scm>
 
   <properties>
@@ -106,4 +105,10 @@
     </profile>
   </profiles>
 
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+    </license>
+  </licenses>
 </project>
